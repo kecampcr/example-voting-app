@@ -1,4 +1,6 @@
 #!/bin/bash
+
+#Referencia https://www.cockroachlabs.com/docs/v22.1/deploy-cockroachdb-with-kubernetes-insecure
 alias mk="minikube kubectl --"   
 minikube start  --kubernetes-version=v1.23.12 --driver=virtualbox --memory=8192 --cpus 4 --addons="metrics-server,metallb"
 minikube dashboard
