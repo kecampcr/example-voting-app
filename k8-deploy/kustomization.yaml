@@ -1,0 +1,12 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+namespace: vote-ns
+resources:
+  - namespace.yaml
+  - postgres.yaml
+  - redis.yaml
+  - result-app.yaml
+  - voting-app.yaml
+  - worker-app.yaml
+  - pg-admin.yaml
+  

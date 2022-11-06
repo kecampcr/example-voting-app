@@ -1,0 +1,54 @@
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: pg-admin
+  name: pg-admin-sv
+  namespace: vote
+spec:
+  type: NodePort
+  ports:
+  - name: "pg-admin-service"
+    port: 80
+    targetPort: 80
+    nodePort: 31002
+  selector:
+    app: pg-admin
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: pg-admin-dp  
+  namespace: vote
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: pg-admin
+  template:
+    metadata:
+      labels:
+        app: pg-admin
+    spec:
+      containers:
+      - name: pg-admin
+        image: dpage/pgadmin4   
+        env:
+          - name:  PGADMIN_DEFAULT_EMAIL
+            value: "kecampcr@gmail.com"
+          - name:  PGADMIN_DEFAULT_PASSWORD
+            value: "mysecret"
+          - name:  PGADMIN_CONFIG_ENHANCED_COOKIE_PROTECTION
+            value: "True"
+#          - name:  PGADMIN_CONFIG_LOGIN_BANNER
+#            value: "Authorised users only!"
+          - name:  PGADMIN_CONFIG_CONSOLE_LOG_LEVEL
+            value: "10"
+      
+# docker run -p 80:80 \
+#     -e 'PGADMIN_DEFAULT_EMAIL=user@domain.com' \
+#     -e 'PGADMIN_DEFAULT_PASSWORD=SuperSecret' \
+#     -e 'PGADMIN_CONFIG_ENHANCED_COOKIE_PROTECTION=True' \
+#     -e 'PGADMIN_CONFIG_LOGIN_BANNER="Authorised users only!"' \
+#     -e 'PGADMIN_CONFIG_CONSOLE_LOG_LEVEL=10' \
+#     -d dpage/pgadmin4
