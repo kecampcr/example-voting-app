@@ -119,7 +119,7 @@ spec:
       # If your client pods generate a lot of network traffic to and from the
       # CockroachDB cluster, you may see a benefit to doing the same thing in
       # their configurations.
-      hostNetwork: true
+      #hostNetwork: true
       dnsPolicy: ClusterFirstWithHostNet
       # NOTE: If you are running clients that generate heavy load, you may find
       # it useful to copy this anti-affinity policy into the client pods'
@@ -166,13 +166,13 @@ spec:
 #           port: http
 #         initialDelaySeconds: 30
 #         periodSeconds: 5
-        readinessProbe:
-          httpGet:
-            path: "/health?ready=1"
-            port: http
-          initialDelaySeconds: 10
-          periodSeconds: 5
-          failureThreshold: 2
+        # readinessProbe:
+        #   httpGet:
+        #     path: "/health?ready=1"
+        #     port: http
+        #   initialDelaySeconds: 10
+        #   periodSeconds: 5
+        #   failureThreshold: 2
         volumeMounts:
         - name: datadir
           mountPath: /cockroach/cockroach-data
