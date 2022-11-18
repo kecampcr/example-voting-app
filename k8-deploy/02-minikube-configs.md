@@ -9,6 +9,7 @@ https://minikube.sigs.k8s.io
 👍 Ejecutar con 1 nodos:
 `minikube start --kubernetes-version=v1.23.12 --driver=virtualbox --memory=8192 --cpus 4 --addons="metrics-server" `
 
+Ingresar al nodo y crear una carpeta
 👍 Levantar con 2 nodos:  
 
 ` minikube start --nodes=2 --kubernetes-version=v1.23.12 --driver=virtualbox --memory=4096 --cpus  --addons="metrics-server" `

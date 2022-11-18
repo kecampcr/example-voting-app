@@ -1,4 +1,34 @@
 apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: postgres-pv-claim
+  namespace: vote-ns
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 1Gi
+
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: postgres-pv
+  namespace: vote-ns
+spec:
+  capacity:
+    storage: 1Gi
+  volumeMode: Filesystem
+  accessModes:
+    - ReadWriteOnce
+  persistentVolumeReclaimPolicy: Recycle
+  storageClassName: standard
+  hostPath:
+    path: /tmp/hostpath-provisioner/vote-ns/postgres-pv
+
+---
+apiVersion: v1
 kind: Service
 metadata:
   name: db
@@ -53,14 +83,3 @@ spec:
       - name: db-data
         persistentVolumeClaim:
           claimName: postgres-pv-claim
----
-apiVersion: v1
-kind: PersistentVolumeClaim
-metadata:
-  name: postgres-pv-claim
-spec:
-  accessModes:
-    - ReadWriteOnce
-  resources:
-    requests:
-      storage: 1Gi
